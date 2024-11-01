@@ -1,0 +1,699 @@
+<html>
+ <head>
+  <title>
+   Sistem Informasi Manajemen Karyawan
+  </title>
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            background-color: #f8fdfc;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: #fff;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+        }
+        .sidebar .nav-link {
+            color: #000;
+        }
+        .sidebar .nav-link.active {
+            background-color: #2883c9;
+            color: #fff;
+        }
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .header {
+            background-color: #0925c4;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+  </style>
+ </head>
+ <body>
+  <div class="d-flex">
+   <div class="sidebar p-3">
+    <div class="text-center mb-4">
+     <img alt="Universitas Pamulang Logo" class="img-fluid rounded-circle mb-2" height="100" src="data:image/jpeg;base64,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" width="100"/>
+     <h5>
+      Universitas Pamulang
+     </h5>
+    </div>
+    <div class="mb-4">
+     <p>
+      Welcome, RioFebriansyah 
+     </p>
+     <p>
+      <strong>
+       Administrator
+      </strong>
+     </p>
+    </div>
+    <nav class="nav flex-column">
+     <a class="nav-link active" href="#">
+      <i class="fas fa-tachometer-alt">
+      </i>
+      Dashboard
+     </a>
+     <p class="mt-3 mb-1">
+      <strong>
+       MENU ADMIN
+      </strong>
+     </p>
+     <a class="nav-link" href="#">
+      <i class="fas fa-user-cog">
+      </i>
+      Pengguna
+     </a>
+     <p class="mt-3 mb-1">
+      <strong>
+       MENU KARYAWAN
+      </strong>
+     </p>
+     <a class="nav-link" href="#">
+      <i class="fas fa-users">
+      </i>
+      Karyawan
+     </a>
+     <a class="nav-link" href="#">
+      <i class="fas fa-briefcase">
+      </i>
+      Jabatan
+     </a>
+     <a class="nav-link" href="#">
+      <i class="fas fa-sitemap">
+      </i>
+      Divisi
+     </a>
+     <p class="mt-3 mb-1">
+      <strong>
+       MENU ABSENSI
+      </strong>
+     </p>
+     <a class="nav-link" href="#">
+      <i class="fas fa-calendar-check">
+      </i>
+      Absensi
+     </a>
+     <a class="nav-link" href="#">
+      <i class="fas fa-calendar-times">
+      </i>
+      Izin
+     </a>
+     <a class="nav-link" href="#">
+      <i class="fas fa-clock">
+      </i>
+      Lembur
+     </a>
+     <p class="mt-3 mb-1">
+      <strong>
+       MENU PENGGAJIAN
+      </strong>
+     </p>
+     <a class="nav-link" href="#">
+      <i class="fas fa-file-invoice-dollar">
+      </i>
+      Slip Gaji
+     </a>
+     <a class="nav-link" href="#">
+      <i class="fas fa-print">
+      </i>
+      Cetak Gaji
+     </a>
+     <p class="mt-3 mb-1">
+      <strong>
+       MENU LAPORAN
+      </strong>
+     </p>
+     <a class="nav-link" href="#">
+      <i class="fas fa-file-alt">
+      </i>
+      Cetak Laporan
+     </a>
+     <a class="nav-link mt-3" href="#">
+      <i class="fas fa-sign-out-alt">
+      </i>
+      Logout
+     </a>
+    </nav>
+   </div>
+   <div class="content flex-grow-1">
+    <div class="header d-flex justify-content-between align-items-center">
+     <h4>
+      UNIVERSITAS PAMULANG
+     </h4>
+     <i class="fas fa-user-circle fa-2x">
+     </i>
+    </div>
+    <div class="mt-4">
+     <h5>
+      Sistem Informasi Manajemen Karyawan
+     </h5>
+     <p>
+      Admin Dashboard
+     </p>
+     <div class="row">
+      <div class="col-md-3">
+       <div class="card p-3 mb-3">
+        <div class="d-flex align-items-center">
+         <i class="fas fa-users fa-2x text-primary">
+         </i>
+         <div class="ms-3">
+          <h6>
+           Data Pegawai
+          </h6>
+          <p class="mb-0">
+           13
+          </p>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="col-md-3">
+       <div class="card p-3 mb-3">
+        <div class="d-flex align-items-center">
+         <i class="fas fa-calendar-alt fa-2x text-success">
+         </i>
+         <div class="ms-3">
+          <h6>
+           Absensi Hari Ini
+          </h6>
+          <p class="mb-0">
+           11 May 2023
+          </p>
+          <p class="mb-0">
+           0
+          </p>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="col-md-3">
+       <div class="card p-3 mb-3">
+        <div class="d-flex align-items-center">
+         <i class="fas fa-check-circle fa-2x text-info">
+         </i>
+         <div class="ms-3">
+          <h6>
+           Izin Menunggu Konfirmasi
+          </h6>
+          <p class="mb-0">
+           2
+          </p>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="col-md-3">
+       <div class="card p-3 mb-3">
+        <div class="d-flex align-items-center">
+         <i class="fas fa-check-circle fa-2x text-info">
+         </i>
+         <div class="ms-3">
+          <h6>
+           Lembur Menunggu Konfirmasi
+          </h6>
+          <p class="mb-0">
+           1
+          </p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div id="content-area">
+      <!-- Content for each menu item -->
+      <div id="pengguna" class="d-none">
+       <h5>
+        Pengguna
+       </h5>
+       <p>
+        Daftar pengguna yang terdaftar dalam sistem.
+       </p>
+       <ul>
+        <li>
+         Pengguna 1
+        </li>
+        <li>
+         Pengguna 2
+        </li>
+        <li>
+         Pengguna 3
+        </li>
+       </ul>
+      </div>
+      <div id="karyawan" class="d-none">
+       <h5>
+        Karyawan
+       </h5>
+       <p>
+        Daftar karyawan yang bekerja di perusahaan.
+       </p>
+       <table class="table table-bordered">
+        <thead>
+         <tr>
+          <th>
+           Nomor
+          </th>
+          <th>
+           Kode Karyawan
+          </th>
+          <th>
+           Nama Karyawan
+          </th>
+          <th>
+           Email Karyawan
+          </th>
+          <th>
+           Alamat Karyawan
+          </th>
+          <th>
+           Jabatan Karyawan
+          </th>
+          <th>
+           Aksi
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           1
+          </td>
+          <td>
+           K001
+          </td>
+          <td>
+           Rio febs
+          </td>
+          <td>
+           Rio123@example.com
+          </td>
+          <td>
+           Jl. Merdeka No. 1
+          </td>
+          <td>
+           Manager
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           2
+          </td>
+          <td>
+           K002
+          </td>
+          <td>
+           Jeanne
+          </td>
+          <td>
+           janeqwe@example.com
+          </td>
+          <td>
+           Jl. Sudirman No. 2
+          </td>
+          <td>
+           Staff
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           3
+          </td>
+          <td>
+           K003
+          </td>
+          <td>
+           Bob Marley
+          </td>
+          <td>
+           bob420@example.com
+          </td>
+          <td>
+           Jl. Thamrin No. 3
+          </td>
+          <td>
+           Supervisor
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div id="jabatan" class="d-none">
+       <h5>
+        Jabatan
+       </h5>
+       <p>
+        Daftar jabatan yang ada di perusahaan.
+       </p>
+       <table class="table table-bordered">
+        <thead>
+         <tr>
+          <th>
+           Nomor
+          </th>
+          <th>
+           Kode Jabatan
+          </th>
+          <th>
+           Nama Jabatan
+          </th>
+          <th>
+           Deskripsi Jabatan
+          </th>
+          <th>
+           Aksi
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           1
+          </td>
+          <td>
+           J001
+          </td>
+          <td>
+           Manager
+          </td>
+          <td>
+           Bertanggung jawab atas pengelolaan tim.
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           2
+          </td>
+          <td>
+           J002
+          </td>
+          <td>
+           Staff
+          </td>
+          <td>
+           Melaksanakan tugas operasional.
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           3
+          </td>
+          <td>
+           J003
+          </td>
+          <td>
+           Supervisor
+          </td>
+          <td>
+           Mengawasi dan mengarahkan tim.
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div id="divisi" class="d-none">
+       <h5>
+        Divisi
+       </h5>
+       <p>
+        Daftar divisi yang ada di perusahaan.
+       </p>
+       <table class="table table-bordered">
+        <thead>
+         <tr>
+          <th>
+           Nomor
+          </th>
+          <th>
+           Kode Divisi
+          </th>
+          <th>
+           Nama Divisi
+          </th>
+          <th>
+           Deskripsi Divisi
+          </th>
+          <th>
+           Aksi
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           1
+          </td>
+          <td>
+           D001
+          </td>
+          <td>
+           Divisi HR
+          </td>
+          <td>
+           Mengelola sumber daya manusia.
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           2
+          </td>
+          <td>
+           D002
+          </td>
+          <td>
+           Divisi IT
+          </td>
+          <td>
+           Mengelola teknologi informasi.
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           3
+          </td>
+          <td>
+           D003
+          </td>
+          <td>
+           Divisi Keuangan
+          </td>
+          <td>
+           Mengelola keuangan perusahaan.
+          </td>
+          <td>
+           <button class="btn btn-warning btn-sm">
+            Edit
+           </button>
+           <button class="btn btn-danger btn-sm">
+            Hapus
+           </button>
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <div id="absensi" class="d-none">
+       <h5>
+        Absensi
+       </h5>
+       <p>
+        Daftar absensi karyawan.
+       </p>
+       <ul>
+        <li>
+         Absensi 1
+        </li>
+        <li>
+         Absensi 2
+        </li>
+        <li>
+         Absensi 3
+        </li>
+       </ul>
+      </div>
+      <div id="izin" class="d-none">
+       <h5>
+        Izin
+       </h5>
+       <p>
+        Daftar izin karyawan.
+       </p>
+       <ul>
+        <li>
+         Izin 1
+        </li>
+        <li>
+         Izin 2
+        </li>
+        <li>
+         Izin 3
+        </li>
+       </ul>
+      </div>
+      <div id="lembur" class="d-none">
+       <h5>
+        Lembur
+       </h5>
+       <p>
+        Daftar lembur karyawan.
+       </p>
+       <ul>
+        <li>
+         Lembur 1
+        </li>
+        <li>
+         Lembur 2
+        </li>
+        <li>
+         Lembur 3
+        </li>
+       </ul>
+      </div>
+      <div id="slip-gaji" class="d-none">
+       <h5>
+        Slip Gaji
+       </h5>
+       <p>
+        Daftar slip gaji karyawan.
+       </p>
+       <ul>
+        <li>
+         Slip Gaji 1
+        </li>
+        <li>
+         Slip Gaji 2
+        </li>
+        <li>
+         Slip Gaji 3
+        </li>
+       </ul>
+      </div>
+      <div id="cetak-gaji" class="d-none">
+       <h5>
+        Cetak Gaji
+       </h5>
+       <p>
+        Cetak gaji karyawan.
+       </p>
+       <ul>
+        <li>
+         Cetak Gaji 1
+        </li>
+        <li>
+         Cetak Gaji 2
+        </li>
+        <li>
+         Cetak Gaji 3
+        </li>
+       </ul>
+      </div>
+      <div id="cetak-laporan" class="d-none">
+       <h5>
+        Cetak Laporan
+       </h5>
+       <p>
+        Cetak laporan karyawan.
+       </p>
+       <ul>
+        <li>
+         Cetak Laporan 1
+        </li>
+        <li>
+         Cetak Laporan 2
+        </li>
+        <li>
+         Cetak Laporan 3
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+   document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('#content-area > div').forEach(div => div.classList.add('d-none'));
+                const targetId = this.textContent.trim().toLowerCase().replace(' ', '-');
+                document.getElementById(targetId).classList.remove('d-none');
+            });
+        });
+  </script>
+ </body>
+</html>
